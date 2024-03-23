@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 public class Main {
     // evro = " €";
     // Задаём где мы находимся. true - город. false - загород
-    static boolean istown = true;
+    static boolean istown = false;
 
     public static void main(String[] args) {
         // объявляем данные для теста, слева реальная скорость(ключ), справа ожидаемый
@@ -32,8 +32,8 @@ public class Main {
             realSpeedToExpectedFine.put(80, 180);
             realSpeedToExpectedFine.put(90, 260);
             realSpeedToExpectedFine.put(100, 400);
-            realSpeedToExpectedFine.put(110, 650);
-            realSpeedToExpectedFine.put(120, 650);
+            realSpeedToExpectedFine.put(110, 560);
+            realSpeedToExpectedFine.put(120, 700);
             realSpeedToExpectedFine.put(121, 800);
         } else {
             System.out.println("Система расчёта штрафов вне населенного пункта");
@@ -42,16 +42,16 @@ public class Main {
 
             realSpeedToExpectedFine = new TreeMap<Integer, Integer>();
             // Для скорости 49 ожидаем штраф 0
-            realSpeedToExpectedFine.put(49, 0);
-            realSpeedToExpectedFine.put(50, 20);
-            realSpeedToExpectedFine.put(65, 30);
-            realSpeedToExpectedFine.put(70, 60);
-            realSpeedToExpectedFine.put(75, 100);
-            realSpeedToExpectedFine.put(80, 150);
-            realSpeedToExpectedFine.put(90, 200);
-            realSpeedToExpectedFine.put(100, 320);
-            realSpeedToExpectedFine.put(110, 480);
-            realSpeedToExpectedFine.put(120, 600);
+            realSpeedToExpectedFine.put(59, 0);
+            realSpeedToExpectedFine.put(60, 20);
+            realSpeedToExpectedFine.put(75, 30);
+            realSpeedToExpectedFine.put(76, 30);
+            realSpeedToExpectedFine.put(80, 60);
+            realSpeedToExpectedFine.put(80, 60);
+            realSpeedToExpectedFine.put(90, 100);
+            realSpeedToExpectedFine.put(100, 150);
+            realSpeedToExpectedFine.put(110, 320);
+            realSpeedToExpectedFine.put(120, 480);
             realSpeedToExpectedFine.put(121, 700);
         }
 
@@ -73,9 +73,9 @@ public class Main {
             int calculateFine = calculateFine(overSpeed, speedRules);
 
             if (calculateFine != expectedFine) {
-                System.out.println("Неверный штраф " + expectedFine + " для скорости " + realSpeed);
+                System.out.println("Неверный штраф " + calculateFine + " для скорости " + realSpeed + "; ожидалось " + expectedFine);
             } else {
-                System.out.println("Штраф " + expectedFine + " для скорости " + realSpeed + " рассчитан верно");
+                System.out.println("Штраф " + calculateFine + " для скорости " + realSpeed + " рассчитан верно");
             }
         }
     }
@@ -89,7 +89,8 @@ public class Main {
             int fine = entry.getValue();
             // 1. Если скорость машины меньше чем взятое значение fineOverSpeed, то возвращаем штраф
             // 2. Если скорость машины больше в цикле в следующей итерации возьмется следующее значение fineOverSpeed и затем пункт 1.
-            if (realOverSpeed <= fineOverSpeed) {
+            // System.out.println("Превышение " + realOverSpeed + "; проверка с " + fineOverSpeed + " штраф если проверка пройдена" + fine);
+            if (realOverSpeed < fineOverSpeed) {
                 // возвращаем штраф, цикл завершается
                 return fine;
             }

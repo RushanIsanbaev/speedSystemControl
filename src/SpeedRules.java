@@ -1,14 +1,17 @@
 
 import java.util.TreeMap;
 
+// Объявляем класс который описывает общие правила скорости
 public abstract class SpeedRules {
     TreeMap<Integer, Integer> overSpeedToFine;
     int maxSpeed;
 }
 
+// Наследник класса для правил города, заполняются правила для города
 class TownSpeedRules extends SpeedRules {
     TownSpeedRules() {
         overSpeedToFine = new TreeMap<Integer, Integer>();
+        // слева превышение до 10, справа штраф для такого превышения
         overSpeedToFine.put(10, 30);
         overSpeedToFine.put(15, 50);
         overSpeedToFine.put(20, 70);
@@ -24,9 +27,11 @@ class TownSpeedRules extends SpeedRules {
     }
 }
 
+// Наследник класса для правил загорода, заполняются правила для загорода
 class NTownSpeedRules extends SpeedRules {
     NTownSpeedRules() {
         overSpeedToFine = new TreeMap<Integer, Integer>();
+        // слева превышение до 10, справа штраф для такого превышения (20)
         overSpeedToFine.put(10, 20);
         overSpeedToFine.put(15, 30);
         overSpeedToFine.put(20, 60);
